@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Final Web Site</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+             <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">Final Web Site</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+       
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('assets/img/I4.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>Industry 4.0 and Cyber Security</h1>
+                            <h2 class="subheading">Industry 4.0 refers to a new phase in the Industrial Revolution that focuses heavily on interconnectivity, automation, machine learning, and real-time data.</h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!">Hamed</a>
+                                on November 09, 2022
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>   
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <h2 class="section-heading">Introduction</h2>
+                        <p>The fourth industrial revolution, known as Industry 4.0, is driven by data and machine learning.</p>
+                        <p>The Internet of Things (IoT), cloud computing, AI, Autonomous Robots, and Simulation/Digital Twins are among the cutting-edge technology that companies are integrating into their industrial processes.</p>
+                        <p>In This work, development of an example of Industry 4.0  applications that collabrating each other to control, monitor, store process output data of an airheater device will be presented.
+                            Air Heater control application and database applications are developed in LabVIEW and data monitoring application is developed by ASP.NET Core.  The data monitoring application is developed on Microsoft Azure cloud service.</p>
+                            <ul><li>System Sketch</li></ul>                            
+                        <p>Figure 1 shows system sketch of the process with data flow direction. Air heater control application publish its data to a MQTT broker application and then air heater database application subscribes to the broker and store receiving data in a SQL database.
+                            Finally aire heater data monitoring web application visulize the sotred data in the SQL database in chart and figure. The application is developed on Microsodt Azure, however it is also possible to use it locally with a local SQL database.
+                        </p>
+                        <a href="#!"><img class="img-fluid" src="assets/img/I4CS4.jpg" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 1: System sketch of Industry 4.0 applications.</blockquote>
+                         <!--Air Heater Control Application -->
+                        <h2 class="section-heading">Method and Result</h2>
+                        <ol>
+                        <li>Development of Air Heater Control Application</li>
+                        <p>The air heater control application is developed in LabVIEW. It reads outlet temperature of air heater mathematical model or actual device and it is filter by a low pass filter function. then it goes to a discrete PI controller to keep the temperature to a setpoint.
+                            The temperature data is published to another LabVIEW application  which is a MQTT Broker application using MQTT protocol. An MQTT publisher code can be seen below first LabVIEW while loop box.
+                            Figure 2 shows screenshot of the air heater control application LabVIEW code. The application has PI controller setting menu that user can
+                            can tune the system and also see control signal and process output (temperature) together.
+                        </p>
+                        <a href="#!"><img class="img-fluid" src="assets/img/lv_app.png" alt="..." /></a> <br>
+                        <blockquote class="blockquote text-center">Figure 2: Air Heater Control Application.</blockquote>      
+
+                        <!--Find PI Parameters by Ziegler–Nichols Method -->
+                        <li>Find PI Parameters by Ziegler–Nichols Method</li>
+                        <p>Figure 3 shows Ziegler–Nichols osclilations. This osciliations is created by increasing Ti to 10000000 s and KP to 8.7 to create the oscliations to find golden KP from period between oscilations and calculate optimum value</p>
+                        <a href="#!"><img class="img-fluid" src="assets/img/zO.png" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 3: Ziegler–Nichols osclilations.</blockquote>
+                        <p>Figure 4 shows result of the tunning. As it can be seen the control signal and process output is smothly controlled with minimum overshot</p>
+                        <a href="#!"><img class="img-fluid" src="assets/img/TZ.png" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 4: Ziegler–Nichols tunned parameteres.</blockquote>                        
+                        <!--MQTT Broker -->
+                        <li>MQTT Broker</li>
+                        <p>MQTT broker application recieved published messages with topic and then another client can connect and read this data</p>
+                        <p>User is able to set MQTT server URL and port. Also it is possible to see the number of connected cliets to the server (see Figures 5 and 6)</p>
+                        <a href="#!"><img class="img-fluid" src="assets/img/MQTTB.png" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 5: MQTT broker LabVIEW application.</blockquote>
+
+                        <a href="#!"><img class="img-fluid" src="assets/img/MQTTBC.png" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 6: MQTT Broker LabVIEW code.</blockquote>
+
+                        <!--Database Control Application -->
+                        <li>Database Control Application</li>
+                        <p>Figure below shows the code and user interface of the database control application. The published temperature data from air heater control application
+                            is read by this application using a MQTT subscrber client. Then the data is stored to a SQL database. This database can be local or on cloud database depending on connection string that currently is set to Microsoft Azure cloud database.
+                                                </p>
+                                                <p>Figures below show the main screen and code of the database application in LabVIEW</p>
+                        <a href="#!"><img class="img-fluid" src="assets/img/DBAPP.png" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 7: Database monitoring LabVIEW application.</blockquote>
+
+                        <a href="#!"><img class="img-fluid" src="assets/img/DBCODE.png" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 8: Database monitoring LabVIEW code.</blockquote>                        
+
+                        <!--Data Monitoring Application -->
+                        <li>Data Monitoring Application</li>
+                        <p>Data monitoring application is an ASP.NET Core application. It reads store data in SQL database and plot the data as well as shows the data on a table with date and time and id number</p>
+                        <p>The application is developed on Microsoft Azure.
+                        Figures below show main screen of data monitoring web application and last measured data as well as data chart.</p>
+                        <a href="#!"><img class="img-fluid" src="assets/img/azure.png" alt="..." /></a>
+                        <blockquote class="blockquote text-center">Figure 9: Main screen of data monitoring application.</blockquote>
+
+                        <a href="#!"><img class="img-fluid" src="assets/img/LMD.png" alt="..." /></a>  
+                        <blockquote class="blockquote text-center">Figure 10: Last measured data page from data monitoring application.</blockquote>
+
+                        <a href="#!"><img class="img-fluid" src="assets/img/dmP.png" alt="..." /></a>  
+                        <blockquote class="blockquote text-center">Figure 11: chart page of data monitoring application.</blockquote>
+                   
+                    </ol>
+                         <!--Conclusion -->
+                         <h2 class="section-heading">Discussion and Conclusion</h2>
+                         <p>The mentioned applications successfully were created and tested. The data monitoring web application is deployed on Microsoft Azure. 
+                            MQTT was used  to published Air Heater outlet temperature.                            
+                            MQTT Broker and Publisher code could be more secure by adding authentication and input data validation. 
+                            </p>Regarding cyber security, typical examples of SQL injection includes:
+                            <ul><li>Retrieving hidden data, where in scenario you can change a SQL query to get more information.</li> 
+                                <li>Modifying a query to interact with the logic of the application, which is exploiting application logic. Data can be retrieved from different database tables.</li></ul>
+                                                    
+                              <p>These could be prevented byinput validation and parametrized queries inside application.</p>
+                         
+                             In terms of MQTT Security Issues:
+                             <ul>
+                                                        <li>Subscribe to published data on Broker.</li>
+                                                        <li>Published SQL injection queries.</li></ul>
+                                                  Some solution are suggested as follows:
+                                                        <li>Add User and Password to the Broker.</li> 
+                                                        <li>Active SSL/TSL connection for the Broker.</li>
+                                                 </ul>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">                       
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; Final Web Site 2022</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
