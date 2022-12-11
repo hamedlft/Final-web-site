@@ -129,15 +129,17 @@
                             <ul><li>Retrieving hidden data, where in scenario you can change a SQL query to get more information.</li> 
                                 <li>Modifying a query to interact with the logic of the application, which is exploiting application logic. Data can be retrieved from different database tables.</li></ul>
                                                     
-                              <p>These could be prevented byinput validation and parametrized queries inside application.</p>
+                              <p>These could be prevented by input validation and parametrized queries inside application.</p>
                          
                              In terms of MQTT Security Issues:
                              <ul>
-                                                        <li>Subscribe to published data on Broker.</li>
-                                                        <li>Published SQL injection queries.</li></ul>
+                                                        <li>Maybe a user can Subscribe to published data on Broker without athutentican.</li>
+                                                        <li>Also a user may published SQL injection queries by sending malicious topic and message to the broker.</li>
+                                                    </ul>
                                                   Some solution are suggested as follows:
                                                         <li>Add User and Password to the Broker.</li> 
                                                         <li>Active SSL/TSL connection for the Broker.</li>
+                                                        <li>The database moitoring application strickly looks for float value as temperature data, thus sending SQL injection queries cannot destroy or give access to un authorized user.</li>
                                                  </ul>
 
                     </div>
